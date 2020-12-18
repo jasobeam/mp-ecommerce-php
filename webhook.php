@@ -7,6 +7,13 @@ if (isset($_POST['type'])) {
           switch ($_POST["type"]) {
                     case "payment":
                               $payment = MercadoPago\Payment . find_by_id($_POST["id"]);
+                              //write json to file
+                              if (file_put_contents("data.json", $payment)) {
+                                        echo "JSON file created successfully...";
+                              } else {
+                                        echo "Oops! Error creating json file...";
+                              }
+
                               break;
                     case "plan":
                               $plan = MercadoPago\Plan . find_by_id($_POST["id"]);
@@ -18,7 +25,7 @@ if (isset($_POST['type'])) {
                               $plan = MercadoPago\Invoice . find_by_id($_POST["id"]);
                               break;
           }
-}else{
+} else {
           echo "Sin Resultados";
 }
 ?>
